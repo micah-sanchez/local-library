@@ -4,17 +4,17 @@ function findAccountById(accounts, id) {
 }
 
 function sortAccountsByLastName(accounts) {
-  sortedAccounts = accounts.sort((a, b) => (a.name.last < b.name.last ? -1 : 1));
+  sortedAccounts = accounts.sort((first, second) => (first.name.last < second.name.last ? -1 : 1));
   return sortedAccounts;
 }
 
 function getTotalNumberOfBorrows(account, books) {
   let sumOfBorrows = 0;
 
-  for (let i = 0; i < books.length; i++) {
-    const indivBook = books[i];
-    for (let j = 0; j < indivBook.borrows.length; j++) {
-    const bookDetails = indivBook.borrows[j];
+  for (let index = 0; index < books.length; index++) {
+    const indivBook = books[index];
+    for (let borrow = 0; borrow < indivBook.borrows.length; borrow++) {
+    const bookDetails = indivBook.borrows[borrow];
       if (bookDetails.id === account.id) {
         sumOfBorrows ++;
       }
@@ -34,10 +34,10 @@ function getBooksPossessedByAccount(account, books, authors) {
 //return result variable  
 
 let result = [];
-  for (let i = 0; i < books.length; i++) {
-    let book = books[i];
-    for (let j = 0; j < book.borrows.length; j++) {
-      let bookBorrowsDetails = book.borrows[j];
+  for (let index = 0; index < books.length; index++) {
+    let book = books[index];
+    for (let borrow = 0; borrow < book.borrows.length; borrow++) {
+      let bookBorrowsDetails = book.borrows[borrow];
       if (bookBorrowsDetails.returned === false && account.id === bookBorrowsDetails.id) {
           authorObject = authors.find((author) => author.id === book.authorId)
           result.push(
