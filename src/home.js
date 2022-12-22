@@ -12,10 +12,10 @@ function getBooksBorrowedCount(books) {
   const bookBorrows = books.map((book) => book.borrows);
 
   let result = [];
-  for (let i = 0; i < bookBorrows.length; i++) {
-    const book = bookBorrows[i]
-    for (let j = 0; j < book.length; j++) {
-      result.push(book[j])
+  for (let index = 0; index < bookBorrows.length; index++) {
+    const book = bookBorrows[index]
+    for (let individualBook = 0; individualBook < book.length; individualBook++) {
+      result.push(book[individualBook])
     }
   }
   
@@ -40,8 +40,8 @@ function getMostCommonGenres(books) {
   const consolidatedGenres = [];
   
   
-  for (let i = 0; i < allGenres.length; i++) {
-    const genre = allGenres[i]
+  for (let index = 0; index < allGenres.length; index++) {
+    const genre = allGenres[index]
     if (consolidatedGenres.includes(genre)) {
       const found = consolidatedGenres.indexOf(genre);
       counts[found] += 1;
@@ -52,26 +52,26 @@ function getMostCommonGenres(books) {
     }
   }
 
-  for (let i = 0; i < consolidatedGenres.length; i++) {
-    const name = consolidatedGenres[i];
-    const count = counts[i];
+  for (let index = 0; index < consolidatedGenres.length; index++) {
+    const name = consolidatedGenres[index];
+    const count = counts[index];
     resultArray.push({name: name, count: count})
   }
 
-  sortedGenreCounts = resultArray.sort((a, b) => a.count < b.count ? 1 : -1);
+  sortedGenreCounts = resultArray.sort((first, second) => first.count < second.count ? 1 : -1);
   return sortedGenreCounts.slice(0, 5)
 
 }
 
 function getMostPopularBooks(books) {
   let returnArray = [];
-  for (let i = 0; i < books.length; i++) {
-    const book = books[i]
+  for (let index = 0; index < books.length; index++) {
+    const book = books[index]
     const numberOfBorrows = book.borrows.length;
     returnArray.push({name: book.title, count: numberOfBorrows})
   }
 
-  returnArray.sort((a, b) => a.count < b.count ? 1 : -1);
+  returnArray.sort((first, second) => first.count < second.count ? 1 : -1);
 
   const topFive = returnArray.slice(0,5)
 
@@ -90,28 +90,28 @@ function getMostPopularAuthors(books, authors) {
   let authorIds = [];
   
 
-  for (let i = 0; i < books.length; i++) {
-    const book = books[i];
+  for (let index = 0; index < books.length; index++) {
+    const book = books[index];
     const id = book.authorId
     const authorFullName = authors[id] + " " + authors[id]
     let count = 0;
 
     if (authorIds.includes(book.authorId)) {
-      const index = authorIds.indexOf(book.authorId)
-      results[index] = {name: id, count: count += book.borrows.length}
+      const bookIndex = authorIds.indexOf(book.authorId)
+      results[bookIndex] = {name: id, count: count += book.borrows.length}
     } else {
       results.push({name: id, count: book.borrows.length})
       authorIds.push(book.authorId)
     }
   }
 
-  for (let i = 0; i < results.length; i++) {
-    const result = results[i]
+  for (let index = 0; index < results.length; index++) {
+    const result = results[index]
     const foundAuthorName = authors.find((author) => author.id === result.name)
     result.name = foundAuthorName.name.first + " " + foundAuthorName.name.last
   }
 
-  results.sort((a, b) => a.count < b.count ? 1 : -1);
+  results.sort((first, second) => first.count < second.count ? 1 : -1);
 
   topFive = results.splice(0,5)
   
