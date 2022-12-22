@@ -9,17 +9,27 @@ function sortAccountsByLastName(accounts) {
 }
 
 function getTotalNumberOfBorrows(account, books) {
+  
   let sumOfBorrows = 0;
 
-  for (let index = 0; index < books.length; index++) {
-    const indivBook = books[index];
-    for (let borrow = 0; borrow < indivBook.borrows.length; borrow++) {
-    const bookDetails = indivBook.borrows[borrow];
-      if (bookDetails.id === account.id) {
-        sumOfBorrows ++;
+  books.forEach((book) => {
+    sumOfBorrows += book.borrows.reduce((accumulator, borrow) => {
+      if (borrow.id === account.id) {
+        return accumulator+=1;
       }
-    }
-  }
+      return accumulator;
+    }, 0);
+  });
+
+  // for (let index = 0; index < books.length; index++) {
+  //   const indivBook = books[index];
+  //   for (let borrow = 0; borrow < indivBook.borrows.length; borrow++) {
+  //   const bookDetails = indivBook.borrows[borrow]; 
+  //     if (bookDetails.id === account.id) {
+  //       sumOfBorrows ++;
+  //     }
+  //   }
+  // }
   return sumOfBorrows
 }
 
