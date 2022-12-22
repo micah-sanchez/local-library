@@ -53,8 +53,8 @@ function getBorrowersForBook(book, accounts) {
   let bookBorrowsReturned = book.borrows.map((borrow) => borrow.returned)
   let bookBorrowsIds = book.borrows.map((borrow) => borrow.id)
 
-  for (let i = 0; i < accounts.length; i++) {
-    const account = accounts[i];
+  for (let index = 0; index < accounts.length; index++) {
+    const account = accounts[index];
     for (id in account);
       if (bookBorrowsIds.includes(account.id)) {
         const index = bookBorrowsIds.indexOf(account.id)
